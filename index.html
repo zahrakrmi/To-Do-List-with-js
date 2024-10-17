@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Dancing+Script:wght@400..700&family=Kaushan+Script&family=Matemasie&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Rubik+Bubbles&family=Spicy+Rice&family=Yellowtail&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+            height: 100vh;
+        }
+
+        h1 {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 50px;
+            text-transform: uppercase;
+            color: #DB7093;
+            font-family: "Matemasie", sans-serif;
+        }
+
+        .helpteacher {
+            width: 50%;
+            min-height: 500px;
+            /* border: 2px solid green; */
+            background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
+            margin: 50px auto;
+            border-radius: 20px;
+
+            >.box {
+                width: 100%;
+                height: 100px;
+                /* border: 2px solid red; */
+                display: flex;
+                justify-content: center;
+
+
+                /* border-bottom: 1px solid gray; */
+                >* {
+                    width: 50%;
+                    height: 100%;
+                    outline: none;
+                    padding-left: 10px;
+                    font-size: 30px;
+                    background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
+                    border: none;
+                    color: gray;
+                    border-radius: 20px;
+                    text-transform: capitalize;
+                }
+
+                >#student {
+                    border-right: 1px solid rgba(128, 128, 128, 0.257);
+                }
+            }
+
+            >.button {
+                width: 30%;
+                height: 50px;
+                background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+                border: none;
+                outline: none;
+                color: gray;
+                font-size: 25px;
+                border-radius: 20px;
+                margin-left: 250px;
+                margin-top: 20px;
+            }
+
+            >ul {
+                margin-top: 50px;
+                width: 100%;
+
+                >li {
+                    width: 100%;
+                    height: 70px;
+                    display: flex;
+                    align-items: center;
+                    list-style: none;
+                    transition: 1s;
+                    /* border: 10px solid gold; */
+                    background-color: rgba(255, 255, 255, 0.416);
+
+                    >* {
+                        color: gray;
+                        font-weight: bold;
+                    }
+
+                    >h3 {
+                        width: 350px;
+                        font-size: 25px;
+                        padding: 10px;
+                        /* border: 1px solid gold; */
+
+                    }
+
+                    >h4 {
+                        width: 100px;
+                        font-size: 25px;
+                        padding: 10px;
+                        /* border: 1px solid gold; */
+                    }
+
+                    >#first {
+                        font-size: 20px;
+                        height: 70px;
+                        border: none;
+                        outline: none;
+                        padding: 5px;
+                        background-color: rgba(255, 255, 255, 0.100);
+                    }
+
+                    >#second {
+                        font-size: 15px;
+                        height: 70px;
+                        border: none;
+                        outline: none;
+                        padding: 5px;
+                        background-color: rgba(255, 255, 255, 0.100);
+                    }
+
+                    >i {
+                        width: 50px;
+                        font-size: 25px;
+                        color: gray;
+
+                        &:nth-of-type(1) {
+                            margin-left: 200px;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .effect {
+            transform: perspective(800px) translateZ(-200px);
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>student list</h1>
+    <div class="helpteacher">
+        <div class="box">
+            <input id="student" type="text" placeholder="student name: ">
+            <input id="score" type="text" placeholder="score: ">
+        </div>
+        <button class="button">Add To List</button>
+        <ul>
+        </ul>
+    </div>
+</body>
+<script>
+    const student = document.querySelector('.helpteacher>.box>#student')
+    const score = document.getElementById('score')
+    console.log(score);
+
+    const btn = document.querySelector('.helpteacher>.button')
+    const ul = document.querySelector('.helpteacher>ul')
+
+
+    btn.addEventListener('click', () => {
+        if (student.value != '' && score.value != '') {
+            let li = document.createElement('li')
+            li.innerHTML = `
+                <h3>${student.value}</h3>
+                <h4>${score.value}</h4>
+                <input type="text"id="first" class="hide">
+                <input type="text"id="second"class="hide">
+                <i onclick="myEdit(this)" class="bi bi-pencil-square"></i>
+                <i onclick="myDelete(this)" class="bi bi-trash"></i>
+            `
+            ul.appendChild(li)
+            student.value = null
+            score.value = null
+            student.focus()
+        } else {
+            if (student.value == '') {
+                alert('Pls Enter Student Name')
+            } else {
+                alert('Pls Enter Score')
+            }
+        }
+    })
+
+
+
+
+    function myDelete(s) {
+        s.parentElement.classList.add('effect')
+        setTimeout(() => {
+            s.parentElement.remove()
+        }, 1000);
+    }
+
+    let flag = 1
+    function myEdit(s) {
+        if (flag % 2) {
+            let temp = s.parentElement.children[0].innerHTML
+            let temp1 = s.parentElement.children[1].innerHTML
+            s.parentElement.children[0].innerHTML = ''
+            s.parentElement.children[1].innerHTML = ''
+            s.parentElement.children[2].classList.remove('hide')
+            s.parentElement.children[3].classList.remove('hide')
+            s.parentElement.children[0].classList.add('hide')
+            s.parentElement.children[1].classList.add('hide')
+            s.parentElement.children[2].value = temp
+            s.parentElement.children[3].value = temp1
+            s.parentElement.children[5].classList.add('hide')
+            s.innerHTML = 'Save'
+        } else {
+            s.parentElement.children[5].classList.remove('hide')
+            let temp = s.parentElement.children[2].value
+            let temp1 = s.parentElement.children[3].value
+            if (temp != '' && temp1 != '') {
+                s.parentElement.children[0].innerHTML = temp
+                s.parentElement.children[1].innerHTML = temp1
+                s.parentElement.children[2].classList.add('hide')
+                s.parentElement.children[3].classList.add('hide')
+                s.parentElement.children[0].classList.remove('hide')
+                s.parentElement.children[1].classList.remove('hide')
+                s.innerHTML = ''
+            } else {
+                s.parentElement.classList.add('effect')
+                setTimeout(() => {
+                    s.parentElement.remove()
+                }, 1000);
+            }
+        }
+        flag++
+    }
+
+
+</script>
+
+</html>
